@@ -32,7 +32,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
     await resultOrFailure.fold(
       (failures) async => onFailure(failures, () => baseRequest(fromRepo)),
-      (result) => onSuccess(result.obj ?? result.list),
+      (result) => onSuccess(result),
     );
   }
 

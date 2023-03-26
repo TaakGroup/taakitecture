@@ -1,51 +1,19 @@
-import 'package:taakitecture/src/base/data/datasources/base_mock_datasource.dart';
-import 'package:taakitecture/taakitecture.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'number_trivia/number_trivia_injection.dart';
+import 'number_trivia/view/pages/number_trivia_page.dart';
 
-class UserModel extends BaseModel {
-  late String name;
+void main() => runApp(NumberTriviaApp());
 
-  @override
-  fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-  }
-
-  @override
-  Map<String, dynamic> toJson() => {'name': name};
-}
-
-class UserRemoteDataSource extends BaseRemoteDatasource {
-  UserRemoteDataSource(IClient client) : super(client: client, model: UserModel(), path: '/user');
-}
-
-class UserMockDataSource extends MockDataSource<UserModel> {
-  UserMockDataSource() : super(model: UserModel());
+class NumberTriviaApp extends StatelessWidget {
+  const NumberTriviaApp({Key? key}) : super(key: key);
 
   @override
-  Future<UserModel> find([String? params]) async => await fetch('fixture/user');
-}
-
-class UserRepository extends BaseRemoteRepository {
-  UserRepository(super.baseRemoteDataSource, super.networkInfo);
-}
-
-class UserController extends BaseController {
-  UserController(super.baseRemoteRepository);
-}
-
-class UserInjection extends Injection {
-  @override
-  initController() {
-    singleton(UserController(sl<UserRepository>()));
-  }
-
-  @override
-  initDataSource() {
-    singleton(UserRemoteDataSource(sl()));
-    singleton(UserMockDataSource());
-  }
-
-  @override
-  initRepository() {
-    singleton(UserRepository(sl<UserMockDataSource>(), sl()));
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialBinding: NumberTriviaInjection(),
+      home: NumberTriviaPage(),
+    );
   }
 }

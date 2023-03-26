@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:taakitecture/src/base/data/datasources/interface_datasource.dart';
 import 'package:taakitecture/src/base/data/models/base_model.dart';
 
-class MockDataSource<Model extends BaseModel> extends IDataSource<Model> {
+class BaseMockDataSource<Model extends BaseModel> extends IDataSource<Model> {
   final Model model;
 
-  MockDataSource({required this.model});
+  BaseMockDataSource({required this.model});
 
   Future<Map<String, dynamic>> loadJson(String path) async => json.decode(await rootBundle.loadString(path));
 
