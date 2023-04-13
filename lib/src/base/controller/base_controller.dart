@@ -5,12 +5,12 @@ import '../data/repositories/base_remote_repository.dart';
 import 'failed_service_queue.dart';
 
 abstract class BaseController<Model> extends GetxController with StateMixin<Model> {
-  final BaseRemoteRepository baseRemoteRepository;
+  final BaseRemoteRepository remoteRepository;
   Stopwatch stopwatch = Stopwatch();
 
   Duration minimumLoadingTime = Duration.zero;
 
-  BaseController(this.baseRemoteRepository);
+  BaseController(this.remoteRepository);
 
   onSuccess(Model result) => change(result, status: RxStatus.success());
 
@@ -36,11 +36,11 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
     );
   }
 
-  Future find([String? query, Map<String, dynamic>? queryParameters]) => baseRequest(() => baseRemoteRepository.find(query));
+  Future find([String? query, Map<String, dynamic>? queryParameters]) => baseRequest(() => remoteRepository.find(query));
 
-  Future create({BaseModel? model, String? params}) => baseRequest(() => baseRemoteRepository.create(model, params));
+  Future create({BaseModel? model, String? params}) => baseRequest(() => remoteRepository.create(model, params));
 
-  Future edit({BaseModel? model, String? params}) => baseRequest(() => baseRemoteRepository.update(model, params));
+  Future edit({BaseModel? model, String? params}) => baseRequest(() => remoteRepository.update(model, params));
 
-  Future delete([String? query]) => baseRequest(() => baseRemoteRepository.delete(query));
+  Future delete([String? query]) => baseRequest(() => remoteRepository.delete(query));
 }
