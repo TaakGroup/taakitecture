@@ -10,12 +10,22 @@ SnackbarController failureSnack(Failure failure, Function() retry) {
     snackPosition: SnackPosition.BOTTOM,
     isDismissible: false,
     borderRadius: 12,
-    padding: EdgeInsets.fromLTRB(24, 8, 16, 8),
+    padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
     margin: EdgeInsets.only(bottom: Get.height * 0.1, right: 16, left: 16),
-    animationDuration: Duration(milliseconds: 500),
-    // mainButton: TextButton(
-    //   onPressed: retry,
-    //   child: Text('تلاش مجدد'),
-    // ),
+    animationDuration: const Duration(milliseconds: 500),
+    duration: const Duration(days: 365),
+    mainButton: TextButton(
+      onPressed: () {
+        Get.closeCurrentSnackbar();
+        retry();
+      },
+      style: Get.theme.textButtonTheme.style?.copyWith(
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        padding: MaterialStateProperty.all(
+          const EdgeInsets.only(left: 24),
+        ),
+      ),
+      child: const Text('تلاش مجدد'),
+    ),
   );
 }
