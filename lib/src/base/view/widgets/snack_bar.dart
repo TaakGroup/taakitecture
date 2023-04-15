@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import '../../../../core/interfaces/failures.dart';
 
 SnackbarController failureSnack(Failure failure, Function() retry) {
-  return Get.snackbar(
-      'مشکلی پیش آمده',
-      'ارتباط با سرور دچار مشکل شد',
+  return Get.showSnackbar(
+    GetSnackBar(
+      title: 'مشکلی پیش آمده',
+      message: 'ارتباط با سرور دچار مشکل شد',
       backgroundColor: Get.theme.colorScheme.surfaceVariant,
       snackPosition: SnackPosition.BOTTOM,
       isDismissible: false,
@@ -17,5 +18,6 @@ SnackbarController failureSnack(Failure failure, Function() retry) {
         onPressed: retry,
         child: Text('تلاش مجدد'),
       ),
-    );
+    ),
+  );
 }
