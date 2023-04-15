@@ -12,6 +12,8 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   BaseController(this.remoteRepository);
 
+  onResponse() {}
+
   onSuccess(Model result) => change(result, status: RxStatus.success());
 
   onFailure(Failure failure, Function action) async => await addToReloadQueue(failure, action);
@@ -24,6 +26,8 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
     stopwatch.start();
     final resultOrFailure = await fromRepo();
     stopwatch.stop();
+
+    onResponse();
 
     int remainMilliseconds = minimumLoadingTime.inMilliseconds - stopwatch.elapsedMilliseconds;
     if (remainMilliseconds > 0) {
