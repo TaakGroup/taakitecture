@@ -1,22 +1,24 @@
 import 'package:get/get.dart';
 import '../../../core/interfaces/failures.dart';
+import '../view/widgets/snack_bar.dart';
 
-class FailedServiceQueue {
-  static List<FailedService> listOfServicesNeedReloaded = [];
-  static Function(Failure failure, Function() retry) displayFailureDialog = (Failure failure, Function() retry) {};
+mixin FailedServiceQueue {
+  late SnackbarController snackbarController;
+  final List<FailedService> _listOfServicesNeedReloaded = [];
 
-  static addToReloadQueue(failure, service) async {
-    listOfServicesNeedReloaded.add(FailedService(service: service, failure: failure));
-    if (!Get.isBottomSheetOpen!) {
-      await displayFailureDialog(failure, _retry);
-    }
+  SnackbarController failureDialog(Failure failure, Function() retry) => getSnack(failure, retry);
+
+  addToReloadQueue(failure, service) async {
+    _listOfServicesNeedReloaded.add(FailedService(service: service, failure: failure));
+    if (!Get.isBottomSheetOpen!) Get.closeAllSnackbars();
+    snackbarController = failureDialog(failure, _retry);
   }
 
-  static _retry() {
-    for (FailedService failedService in listOfServicesNeedReloaded) {
+  _retry() {
+    for (FailedService failedService in _listOfServicesNeedReloaded) {
       failedService.service.call();
     }
-    listOfServicesNeedReloaded.clear();
+    _listOfServicesNeedReloaded.clear();
   }
 }
 

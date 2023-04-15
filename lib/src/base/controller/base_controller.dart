@@ -4,7 +4,7 @@ import '../data/models/base_model.dart';
 import '../data/repositories/base_remote_repository.dart';
 import 'failed_service_queue.dart';
 
-abstract class BaseController<Model> extends GetxController with StateMixin<Model> {
+abstract class BaseController<Model> extends GetxController with StateMixin<Model>, FailedServiceQueue {
   final BaseRemoteRepository remoteRepository;
   Stopwatch stopwatch = Stopwatch();
 
@@ -14,7 +14,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   onSuccess(Model result) => change(result, status: RxStatus.success());
 
-  onFailure(Failure failure, Function action) async => await FailedServiceQueue.addToReloadQueue(failure, action);
+  onFailure(Failure failure, Function action) async => await addToReloadQueue(failure, action);
 
   onLoading() => change(null, status: RxStatus.loading());
 
