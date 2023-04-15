@@ -8,6 +8,9 @@ SnackbarController failureSnack(Failure failure, Function() retry) => Get.snackb
       backgroundColor: Get.theme.colorScheme.surfaceVariant,
       snackPosition: SnackPosition.BOTTOM,
       isDismissible: false,
+      padding: EdgeInsets.fromLTRB(24, 8, 16, 8),
+      margin: EdgeInsets.all(16),
+      duration: Duration(days: 365),
       mainButton: TextButton(
         onPressed: () {
           Get.closeAllSnackbars();
