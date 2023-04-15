@@ -10,9 +10,10 @@ SnackbarController failureSnack(Failure failure, Function() retry) {
       snackPosition: SnackPosition.BOTTOM,
       isDismissible: false,
       borderRadius: 12,
-      padding: EdgeInsets.fromLTRB(24, 8, 16, 8),
-      margin: EdgeInsets.only(bottom: 64),
+      padding: EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 72, right: 16, left: 16),
       animationDuration: Duration(milliseconds: 500),
+      duration: Duration(days: 365),
       mainButton: TextButton(
         onPressed: () {
           Get.closeAllSnackbars();
