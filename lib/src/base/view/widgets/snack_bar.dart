@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import '../../../../core/interfaces/failures.dart';
 
 SnackbarController failureSnack(Failure failure, Function() retry) {
-  return Get.snackbar(
+  late SnackbarController controller;
+
+  controller = Get.snackbar(
     'مشکلی پیش آمده',
     'ارتباط با سرور دچار مشکل شد',
     backgroundColor: Get.theme.colorScheme.surfaceVariant,
@@ -16,7 +18,7 @@ SnackbarController failureSnack(Failure failure, Function() retry) {
     duration: const Duration(days: 365),
     mainButton: TextButton(
       onPressed: () {
-        Get.closeCurrentSnackbar();
+        controller.close();
         retry();
       },
       style: Get.theme.textButtonTheme.style?.copyWith(
@@ -28,4 +30,6 @@ SnackbarController failureSnack(Failure failure, Function() retry) {
       child: const Text('تلاش مجدد'),
     ),
   );
+
+  return controller;
 }
