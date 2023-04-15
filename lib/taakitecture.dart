@@ -4,6 +4,7 @@
 library taakitecture;
 
 export 'src/base/data/models/base_model.dart';
+export 'src/base/data/models/model_mixin.dart';
 export 'src/base/data/datasources/base_remote_datasource.dart';
 export 'src/base/data/datasources/base_mock_datasource.dart';
 export 'src/base/data/repositories/base_remote_repository.dart';
