@@ -13,7 +13,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   BaseController(this.remoteRepository);
 
-  onResponse(Either<Failure, BaseModel> response) {}
+  onResponse(Either<Failure, Model> response) {}
 
   onSuccess(Model result) => change(result, status: RxStatus.success());
 
@@ -25,7 +25,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
     onLoading();
 
     stopwatch.start();
-    final resultOrFailure = await fromRepo();
+    final Either<Failure, Model> resultOrFailure = await fromRepo();
     stopwatch.stop();
 
     onResponse(resultOrFailure);
