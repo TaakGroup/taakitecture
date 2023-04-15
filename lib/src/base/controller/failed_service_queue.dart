@@ -6,7 +6,7 @@ mixin FailedServiceQueue {
   late SnackbarController snackbarController;
   final List<FailedService> _listOfServicesNeedReloaded = [];
 
-  SnackbarController failureDialog(Failure failure, Function() retry) => getSnack(failure, retry);
+  SnackbarController failureDialog(Failure failure, Function() retry) => failureSnack(failure, retry);
 
   addToReloadQueue(failure, service) async {
     _listOfServicesNeedReloaded.add(FailedService(service: service, failure: failure));
