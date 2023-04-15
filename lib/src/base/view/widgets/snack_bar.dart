@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/interfaces/failures.dart';
 
-SnackbarController failureSnack(Failure failure, Function() retry) => Get.snackbar(
+SnackbarController failureSnack(Failure failure, Function() retry) {
+  return Get.snackbar(
       'مشکلی پیش آمده',
       'ارتباط با سرور دچار مشکل شد',
       backgroundColor: Get.theme.colorScheme.surfaceVariant,
@@ -10,12 +11,14 @@ SnackbarController failureSnack(Failure failure, Function() retry) => Get.snackb
       isDismissible: false,
       borderRadius: 12,
       padding: EdgeInsets.fromLTRB(24, 8, 16, 8),
-      margin: EdgeInsets.all(16),
+      margin: EdgeInsets.only(bottom: 64),
+      animationDuration: Duration(milliseconds: 500),
       mainButton: TextButton(
         onPressed: () {
-          Get.closeCurrentSnackbar();
+          Get.closeAllSnackbars();
           retry();
         },
         child: Text('تلاش مجدد'),
       ),
     );
+}
