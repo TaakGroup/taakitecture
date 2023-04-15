@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:taakitecture/core/interfaces/failures.dart';
 import '../data/models/base_model.dart';
@@ -12,7 +13,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   BaseController(this.remoteRepository);
 
-  onResponse() {}
+  onResponse(Either<Failure, BaseModel> response) {}
 
   onSuccess(Model result) => change(result, status: RxStatus.success());
 
@@ -27,7 +28,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
     final resultOrFailure = await fromRepo();
     stopwatch.stop();
 
-    onResponse();
+    onResponse(resultOrFailure);
 
     int remainMilliseconds = minimumLoadingTime.inMilliseconds - stopwatch.elapsedMilliseconds;
     if (remainMilliseconds > 0) {
