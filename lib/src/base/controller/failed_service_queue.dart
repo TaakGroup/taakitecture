@@ -9,7 +9,7 @@ mixin FailedServiceQueue {
 
   addToReloadQueue(failure, service) async {
     _listOfServicesNeedReloaded.add(FailedService(service: service, failure: failure));
-    if (!Get.isBottomSheetOpen!) Get.closeAllSnackbars();
+    snackbarController?.close();
     snackbarController = failureDialog(failure, _retry);
   }
 
