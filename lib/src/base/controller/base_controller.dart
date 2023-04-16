@@ -51,7 +51,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   @override
   onClose() {
-    snackbarController?.close(withAnimations: false);
+    snackbarController?.close();
     return super.onClose();
   }
 }
