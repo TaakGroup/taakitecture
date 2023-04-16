@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
 import '../../../core/interfaces/failures.dart';
-import '../view/widgets/snack_bar.dart';
 
 mixin FailedServiceQueue {
-  late SnackbarController snackbarController;
+  SnackbarController? snackbarController;
   final List<FailedService> _listOfServicesNeedReloaded = [];
 
-  SnackbarController failureDialog(Failure failure, Function() retry) => failureSnack(failure, retry);
+  SnackbarController? failureDialog(Failure failure, Function() retry) {}
 
   addToReloadQueue(failure, service) async {
     _listOfServicesNeedReloaded.add(FailedService(service: service, failure: failure));

@@ -48,4 +48,10 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
   Future edit({BaseModel? model, String? params}) => baseRequest(() => remoteRepository.update(model, params));
 
   Future delete([String? query]) => baseRequest(() => remoteRepository.delete(query));
+
+  @override
+  onClose() {
+    snackbarController?.close(withAnimations: false);
+    return super.onClose();
+  }
 }
