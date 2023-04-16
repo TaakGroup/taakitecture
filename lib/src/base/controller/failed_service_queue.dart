@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:get/get.dart';
 import '../../../core/interfaces/failures.dart';
 
 mixin FailedServiceQueue {
   SnackbarController? snackbarController;
-  final List<FailedService> _listOfServicesNeedReloaded = [];
+  final Set<FailedService> _listOfServicesNeedReloaded = {};
 
   SnackbarController? failureDialog(Failure failure, Function() retry) {}
 
@@ -21,9 +22,12 @@ mixin FailedServiceQueue {
   }
 }
 
-class FailedService {
+class FailedService extends Equatable{
   final Function service;
   final Failure failure;
 
   FailedService({required this.service, required this.failure});
+
+  @override
+  List<Object?> get props => [service, failure];
 }
