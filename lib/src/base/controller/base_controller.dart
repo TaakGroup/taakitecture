@@ -32,13 +32,11 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
     int remainMilliseconds = minimumLoadingTime.inMilliseconds - stopwatch.elapsedMilliseconds;
     if (remainMilliseconds > 0) await Future.delayed(Duration(milliseconds: remainMilliseconds));
 
+    onFailure(failures) async => this.onFailure(requestId, failures, () => baseRequest(fromRepo, requestId));
+
     await either.fold(
-      (failures) async {
-        onFailure(requestId, failures, () => baseRequest(fromRepo, requestId));
-      },
-      (result) {
-        onSuccess(result);
-      },
+      onFailure,
+      onSuccess,
     );
 
     return either;
