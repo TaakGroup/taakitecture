@@ -39,7 +39,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
       (result) => onSuccess(result),
     );
 
-    return resultOrFailure;
+    return resultOrFailure.fold;
   }
 
   String requestId(x, y) => "$x$y";
