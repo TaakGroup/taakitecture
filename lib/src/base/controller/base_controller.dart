@@ -37,6 +37,8 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
       (failures) async => onFailure(requestId, failures, () => baseRequest(fromRepo, requestId)),
       (result) => onSuccess(result),
     );
+
+    return resultOrFailure;
   }
 
   String requestId(x, y) => "$x$y";
