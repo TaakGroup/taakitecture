@@ -24,7 +24,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
     onLoading();
 
     stopwatch.start();
-    final resultOrFailure = await fromRepo();
+    final either = await fromRepo();
     stopwatch.stop();
 
     onResponse();
@@ -34,12 +34,12 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
       await Future.delayed(Duration(milliseconds: remainMilliseconds));
     }
 
-    await resultOrFailure.fold(
+    await either.fold(
       (failures) async => onFailure(requestId, failures, () => baseRequest(fromRepo, requestId)),
       (result) => onSuccess(result),
     );
 
-    return resultOrFailure.fold;
+    return either;
   }
 
   String requestId(x, y) => "$x$y";
