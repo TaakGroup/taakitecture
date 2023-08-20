@@ -20,7 +20,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   onLoading() => change(null, status: RxStatus.loading());
 
-  Future<Either<Failure, Model>> baseRequest(Future Function() fromRepo, String requestId) async {
+  Future<Either> baseRequest(Future Function() fromRepo, String requestId) async {
     onLoading();
 
     stopwatch.start();
@@ -32,11 +32,9 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
     int remainMilliseconds = minimumLoadingTime.inMilliseconds - stopwatch.elapsedMilliseconds;
     if (remainMilliseconds > 0) await Future.delayed(Duration(milliseconds: remainMilliseconds));
 
-    onFailure(failures) async => this.onFailure(requestId, failures, () => baseRequest(fromRepo, requestId));
-
     await either.fold(
-      onFailure,
-      onSuccess,
+      (failures) async => this.onFailure(requestId, failures, () => baseRequest(fromRepo, requestId)),
+      (result) => onSuccess(result),
     );
 
     return either;
@@ -44,28 +42,28 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   String requestId(x, y) => "$x$y";
 
-  Future<Either<Failure, Model>> find([String? query, Map<String, dynamic>? queryParameters]) {
+  Future<Either> find([String? query, Map<String, dynamic>? queryParameters]) {
     return baseRequest(
       () => remoteRepository.find(query),
       requestId(query, queryParameters),
     );
   }
 
-  Future<Either<Failure, Model>> create({BaseModel? model, String? params}) {
+  Future<Either> create({BaseModel? model, String? params}) {
     return baseRequest(
       () => remoteRepository.create(model, params),
       requestId(model, params),
     );
   }
 
-  Future<Either<Failure, Model>> edit({BaseModel? model, String? params}) {
+  Future<Either> edit({BaseModel? model, String? params}) {
     return baseRequest(
       () => remoteRepository.update(model, params),
       requestId(model, params),
     );
   }
 
-  Future<Either<Failure, Model>> delete([String? query]) {
+  Future<Either> delete([String? query]) {
     return baseRequest(
       () => remoteRepository.delete(query),
       requestId(query, null),
