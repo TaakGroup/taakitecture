@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:taakitecture/core/interfaces/failures.dart';
 import '../data/models/base_model.dart';
@@ -19,7 +20,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   onLoading() => change(null, status: RxStatus.loading());
 
-  Future baseRequest(Future Function() fromRepo, String requestId) async {
+  Future<Either<Failure, Model>> baseRequest(Future Function() fromRepo, String requestId) async {
     onLoading();
 
     stopwatch.start();
@@ -43,23 +44,31 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   String requestId(x, y) => "$x$y";
 
-  Future find([String? query, Map<String, dynamic>? queryParameters]) => baseRequest(
-        () => remoteRepository.find(query),
-        requestId(query, queryParameters),
-      );
+  Future<Either<Failure, Model>> find([String? query, Map<String, dynamic>? queryParameters]) {
+    return baseRequest(
+      () => remoteRepository.find(query),
+      requestId(query, queryParameters),
+    );
+  }
 
-  Future create({BaseModel? model, String? params}) => baseRequest(
-        () => remoteRepository.create(model, params),
-        requestId(model, params),
-      );
+  Future<Either<Failure, Model>> create({BaseModel? model, String? params}) {
+    return baseRequest(
+      () => remoteRepository.create(model, params),
+      requestId(model, params),
+    );
+  }
 
-  Future edit({BaseModel? model, String? params}) => baseRequest(
-        () => remoteRepository.update(model, params),
-        requestId(model, params),
-      );
+  Future<Either<Failure, Model>> edit({BaseModel? model, String? params}) {
+    return baseRequest(
+      () => remoteRepository.update(model, params),
+      requestId(model, params),
+    );
+  }
 
-  Future delete([String? query]) => baseRequest(
-        () => remoteRepository.delete(query),
-        requestId(query, null),
-      );
+  Future<Either<Failure, Model>> delete([String? query]) {
+    return baseRequest(
+      () => remoteRepository.delete(query),
+      requestId(query, null),
+    );
+  }
 }
