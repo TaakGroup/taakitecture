@@ -69,4 +69,11 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
       requestId(query, null),
     );
   }
+
+  Future<Either> uploadFile({required formData, String? params}) {
+    return baseRequest(
+      () => remoteRepository.uploadFile(formData: formData, params: params),
+      requestId(formData, params),
+    );
+  }
 }
