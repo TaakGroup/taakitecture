@@ -8,4 +8,6 @@ abstract class IDataSource<Model extends BaseModel> {
   Future<Model> update({required Model? data, String? params});
 
   Future<Model> delete([String? params]);
+
+  uploadFile({required formData, String? params});
 }

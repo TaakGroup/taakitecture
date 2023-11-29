@@ -31,4 +31,9 @@ class BaseMockDataSource<Model extends BaseModel> extends IDataSource<Model> {
   Future<Model> update({required BaseModel? data, String? params}) {
     throw UnimplementedError();
   }
+
+  @override
+  uploadFile({required formData, String? params}) {
+    throw UnimplementedError();
+  }
 }
