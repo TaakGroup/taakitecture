@@ -33,7 +33,7 @@ class BaseMockDataSource<Model extends BaseModel> extends IDataSource<Model> {
   }
 
   @override
-  uploadFile({required formData, String? params}) {
+  uploadFile({required formData, String? params, Function(int, int)? onSendProgress}) {
     throw UnimplementedError();
   }
 }

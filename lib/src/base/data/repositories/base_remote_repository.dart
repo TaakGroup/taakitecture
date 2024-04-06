@@ -62,10 +62,10 @@ abstract class BaseRemoteRepository<Model extends BaseModel> {
     }
   }
 
-  Future<Either<Failure, Model>> uploadFile({required formData, String? params}) async {
+  Future<Either<Failure, Model>> uploadFile({required formData, String? params, Function(int, int)? onSendProgress}) async {
     if (await networkInfo.isConnected()) {
       try {
-        final result = await remoteDataSource.uploadFile(formData: formData, params: params);
+        final result = await remoteDataSource.uploadFile(formData: formData, params: params, onSendProgress: onSendProgress);
         return Right(result);
       } on Exception {
         return Left(ServerFailure());
