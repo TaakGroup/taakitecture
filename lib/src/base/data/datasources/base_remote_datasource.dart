@@ -35,7 +35,7 @@ abstract class BaseRemoteDatasource<Model extends BaseModel> implements IDataSou
 
   @override
   uploadFile({required formData, String? params, Function(int, int)? onSendProgress}) async {
-    final response = await client.upload('$path/${params ?? ''}', formData: formData);
+    final response = await client.upload('$path/${params ?? ''}', formData: formData, onSendProgress: onSendProgress);
     return model.fromJson(response);
   }
 }

@@ -7,5 +7,5 @@ abstract class IClient {
 
   delete(String path);
 
-  upload(String path, {required formData});
+  upload(String path, {required formData, Function(int, int)? onSendProgress});
 }
