@@ -28,8 +28,8 @@ abstract class BaseRemoteDatasource<Model extends BaseModel> implements IDataSou
   }
 
   @override
-  Future<Model> delete([String? params]) async {
-    final response = await client.delete('$path/${params ?? ''}');
+  Future<Model> delete([String? params, Model? data]) async {
+    final response = await client.delete('$path/${params ?? ''}', data: data?.toJson());
     return model.fromJson(response);
   }
 

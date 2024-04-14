@@ -49,10 +49,10 @@ abstract class BaseRemoteRepository<Model extends BaseModel> {
     }
   }
 
-  Future<Either<Failure, Model>> delete(String? params) async {
+  Future<Either<Failure, Model>> delete([String? params, BaseModel? data]) async {
     if (await networkInfo.isConnected()) {
       try {
-        dynamic result = await remoteDataSource.delete(params);
+        dynamic result = await remoteDataSource.delete(params, data);
         return Right(result);
       } on Exception {
         return Left(ServerFailure());

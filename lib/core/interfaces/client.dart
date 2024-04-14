@@ -5,7 +5,7 @@ abstract class IClient {
 
   put(String path, {Map<String, dynamic>? data});
 
-  delete(String path);
+  delete(String path, {Map<String, dynamic>? data});
 
   upload(String path, {required formData, Function(int, int)? onSendProgress});
 }

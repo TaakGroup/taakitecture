@@ -33,8 +33,8 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
     if (remainMilliseconds > 0) await Future.delayed(Duration(milliseconds: remainMilliseconds));
 
     await either.fold(
-          (failures) async => this.onFailure(requestId, failures, () => baseRequest(fromRepo, requestId)),
-          (result) => onSuccess(result),
+      (failures) async => this.onFailure(requestId, failures, () => baseRequest(fromRepo, requestId)),
+      (result) => onSuccess(result),
     );
 
     return either;
@@ -44,35 +44,39 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   Future<Either> find([String? query, Map<String, dynamic>? queryParameters]) {
     return baseRequest(
-          () => remoteRepository.find(query),
+      () => remoteRepository.find(query),
       requestId(query, queryParameters),
     );
   }
 
   Future<Either> create({BaseModel? model, String? params}) {
     return baseRequest(
-          () => remoteRepository.create(model, params),
+      () => remoteRepository.create(model, params),
       requestId(model, params),
     );
   }
 
   Future<Either> edit({BaseModel? model, String? params}) {
     return baseRequest(
-          () => remoteRepository.update(model, params),
+      () => remoteRepository.update(model, params),
       requestId(model, params),
     );
   }
 
-  Future<Either> delete([String? query]) {
+  Future<Either> delete([String? query, BaseModel? data]) {
     return baseRequest(
-          () => remoteRepository.delete(query),
+      () => remoteRepository.delete(query, data),
       requestId(query, null),
     );
   }
 
   Future<Either> uploadFile({required formData, String? params, Function(int, int)? onSendProgress}) {
     return baseRequest(
-          () => remoteRepository.uploadFile(formData: formData, params: params, onSendProgress: onSendProgress,),
+      () => remoteRepository.uploadFile(
+        formData: formData,
+        params: params,
+        onSendProgress: onSendProgress,
+      ),
       requestId(formData, params),
     );
   }

@@ -18,7 +18,7 @@ class BaseMockDataSource<Model extends BaseModel> extends IDataSource<Model> {
   }
 
   @override
-  Future<Model> delete([String? params]) {
+  Future<Model> delete([String? params, Model? data]) {
     throw UnimplementedError();
   }
 
