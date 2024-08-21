@@ -5,7 +5,7 @@ class NumberTriviaMockDataSource extends BaseMockDataSource<NumberTriviaModel> {
   NumberTriviaMockDataSource() : super(model: NumberTriviaModel());
 
   @override
-  Future<NumberTriviaModel> find([String? params]) {
+  Future<NumberTriviaModel> find([String? params, Map<String, String>? query]) {
     return Future(
       () => NumberTriviaModel.fromMap(
         {

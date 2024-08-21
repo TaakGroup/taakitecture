@@ -10,31 +10,31 @@ abstract class BaseRemoteDatasource<Model extends BaseModel> implements IDataSou
   BaseRemoteDatasource({required this.client, required this.path, required this.model});
 
   @override
-  Future<Model> find([String? params]) async {
+  Future<Model> find([String? params, Map<String, String>? query]) async {
     final response = await client.get('$path/${params ?? ''}');
     return model.fromJson(response);
   }
 
   @override
-  Future<Model> create({Model? data, String? params}) async {
+  Future<Model> create({Model? data, String? params, Map<String, String>? query}) async {
     final response = await client.post('$path/${params ?? ''}', data: data?.toJson());
     return model.fromJson(response);
   }
 
   @override
-  Future<Model> update({required Model? data, String? params}) async {
+  Future<Model> update({required Model? data, String? params, Map<String, String>? query}) async {
     final response = await client.put('$path/${params ?? ''}', data: data?.toJson());
     return model.fromJson(response);
   }
 
   @override
-  Future<Model> delete([String? params, Model? data]) async {
+  Future<Model> delete([String? params, Model? data, Map<String, String>? query]) async {
     final response = await client.delete('$path/${params ?? ''}', data: data?.toJson());
     return model.fromJson(response);
   }
 
   @override
-  uploadFile({required formData, String? params, Function(int, int)? onSendProgress}) async {
+  uploadFile({required formData, String? params, Map<String, String>? query, Function(int, int)? onSendProgress}) async {
     final response = await client.upload('$path/${params ?? ''}', formData: formData, onSendProgress: onSendProgress);
     return model.fromJson(response);
   }

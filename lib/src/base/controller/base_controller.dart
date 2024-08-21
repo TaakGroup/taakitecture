@@ -42,39 +42,40 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   String requestId(x, y) => "$x$y";
 
-  Future<Either> find([String? query, Map<String, dynamic>? queryParameters]) {
+  Future<Either> find([String? param, Map<String, String>? query]) {
     return baseRequest(
-      () => remoteRepository.find(query),
-      requestId(query, queryParameters),
+      () => remoteRepository.find(param),
+      requestId(query, query),
     );
   }
 
-  Future<Either> create({BaseModel? model, String? params}) {
+  Future<Either> create({BaseModel? model, String? params, Map<String, String>? query}) {
     return baseRequest(
-      () => remoteRepository.create(model, params),
+      () => remoteRepository.create(model, params, query),
       requestId(model, params),
     );
   }
 
-  Future<Either> edit({BaseModel? model, String? params}) {
+  Future<Either> edit({BaseModel? model, String? params, Map<String, String>? query}) {
     return baseRequest(
-      () => remoteRepository.update(model, params),
+      () => remoteRepository.update(model, params, query),
       requestId(model, params),
     );
   }
 
-  Future<Either> delete([String? query, BaseModel? data]) {
+  Future<Either> delete([String? param, BaseModel? data, Map<String, String>? query]) {
     return baseRequest(
-      () => remoteRepository.delete(query, data),
-      requestId(query, null),
+      () => remoteRepository.delete(param, data, query),
+      requestId(param, data),
     );
   }
 
-  Future<Either> uploadFile({required formData, String? params, Function(int, int)? onSendProgress}) {
+  Future<Either> uploadFile({required formData, String? params, Map<String, String>? query, Function(int, int)? onSendProgress}) {
     return baseRequest(
       () => remoteRepository.uploadFile(
         formData: formData,
         params: params,
+        query: query,
         onSendProgress: onSendProgress,
       ),
       requestId(formData, params),

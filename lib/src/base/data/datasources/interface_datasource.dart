@@ -1,13 +1,13 @@
 import '../models/base_model.dart';
 
 abstract class IDataSource<Model extends BaseModel> {
-  Future<Model> find([String? params]);
+  Future<Model> find([String? params, Map<String, String>? query]);
 
-  Future<Model> create({Model? data, String? params});
+  Future<Model> create({Model? data, String? params, Map<String, String>? query});
 
-  Future<Model> update({required Model? data, String? params});
+  Future<Model> update({required Model? data, String? params, Map<String, String>? query});
 
-  Future<Model> delete([String? params, Model? data]);
+  Future<Model> delete([String? params, Model? data, Map<String, String>? query]);
 
-  uploadFile({required formData, String? params, Function(int, int)? onSendProgress});
+  uploadFile({required formData, String? params, Map<String, String>? query, Function(int, int)? onSendProgress});
 }
