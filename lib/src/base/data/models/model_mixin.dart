@@ -9,6 +9,8 @@ mixin ModelMixin on BaseModel {
   @override
   Map<String, dynamic> toJson() => properties;
 
+  Map<String, dynamic> toParams() => properties.map((key, value) => MapEntry(key, value.toString()));
+
   BaseModel getInstance();
 
   @override
