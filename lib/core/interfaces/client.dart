@@ -1,5 +1,5 @@
 abstract class IClient {
-  get(String path, Map<String, String>? query);
+  get(String path, Map<String, dynamic>? query);
 
   post(String path, {Map<String, dynamic>? data, Map<String, String>? query});
 

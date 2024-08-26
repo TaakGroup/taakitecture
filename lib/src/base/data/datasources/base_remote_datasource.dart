@@ -10,7 +10,7 @@ abstract class BaseRemoteDatasource<Model extends BaseModel> implements IDataSou
   BaseRemoteDatasource({required this.client, required this.path, required this.model});
 
   @override
-  Future<Model> find([String? params, Map<String, String>? query]) async {
+  Future<Model> find([String? params, Map<String, dynamic>? query]) async {
     final response = await client.get('$path${params != null ? '/$params' : ""}', query);
     return model.fromJson(response);
   }

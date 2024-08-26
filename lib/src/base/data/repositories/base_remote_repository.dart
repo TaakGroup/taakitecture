@@ -10,7 +10,7 @@ abstract class BaseRemoteRepository<Model extends BaseModel> {
 
   BaseRemoteRepository(this.remoteDataSource, this.networkInfo);
 
-  Future<Either<Failure, Model>> find([String? params, Map<String, String>? query]) async {
+  Future<Either<Failure, Model>> find([String? params, Map<String, dynamic>? query]) async {
     if (await networkInfo.isConnected()) {
       try {
         dynamic result = await remoteDataSource.find(params, query);

@@ -23,7 +23,7 @@ class BaseMockDataSource<Model extends BaseModel> extends IDataSource<Model> {
   }
 
   @override
-  Future<Model> find([String? params, Map<String, String>? query]) {
+  Future<Model> find([String? params, Map<String, dynamic>? query]) {
     throw UnimplementedError();
   }
 

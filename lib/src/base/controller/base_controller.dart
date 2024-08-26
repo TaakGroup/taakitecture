@@ -42,7 +42,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
 
   String requestId(x, y) => "$x$y";
 
-  Future<Either> find([String? param, Map<String, String>? query]) {
+  Future<Either> find([String? param, Map<String, dynamic>? query]) {
     return baseRequest(
       () => remoteRepository.find(param, query),
       requestId(query, query),
