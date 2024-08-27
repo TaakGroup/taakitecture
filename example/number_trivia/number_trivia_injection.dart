@@ -11,7 +11,7 @@ class NumberTriviaInjection extends Injection {
 
   @override
   initDataSource() {
-    singleton<INetworkInfo>(NetworkInfo());
+    // singleton<INetworkInfo>(NetworkInfo());
     singleton(NumberTriviaMockDataSource());
   }
 

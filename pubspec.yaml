@@ -10,7 +10,6 @@ dependencies:
   equatable: ^2.0.5
   dartz: ^0.10.1
   get: any
-  internet_connection_checker: ^1.0.0+1
 
 # dependencies:
 #   path: ^1.8.0
