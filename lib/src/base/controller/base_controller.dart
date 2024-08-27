@@ -6,7 +6,6 @@ import '../data/repositories/base_remote_repository.dart';
 
 abstract class BaseController<Model> extends GetxController with StateMixin<Model> {
   final BaseRemoteRepository remoteRepository;
-  Stopwatch stopwatch = Stopwatch();
 
   Duration minimumLoadingTime = Duration.zero;
 
@@ -21,6 +20,7 @@ abstract class BaseController<Model> extends GetxController with StateMixin<Mode
   onLoading() => change(null, status: RxStatus.loading());
 
   Future<Either> baseRequest(Future Function() fromRepo, String requestId) async {
+    Stopwatch stopwatch = Stopwatch();
     onLoading();
 
     stopwatch.start();
